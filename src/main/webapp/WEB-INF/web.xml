@@ -14,4 +14,14 @@
     <servlet-name>HelloServlet</servlet-name>
     <url-pattern>/hello</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>UsersServlet</servlet-name>
+    <servlet-class>org.sda.servlets.UsersServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UsersServlet</servlet-name>
+    <url-pattern>/users</url-pattern>
+  </servlet-mapping>
 </web-app>
