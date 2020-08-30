@@ -1,10 +1,9 @@
-package org.sda.servlets;
+package org.sda.web.servlets;
 
-import org.sda.servlets.global.UsersListSingletonEnum;
-import org.sda.servlets.model.User;
+import org.sda.web.global.UsersListSingletonEnum;
+import org.sda.web.model.User;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,6 +1,6 @@
-package org.sda.servlets.global;
+package org.sda.web.global;
 
-import org.sda.servlets.model.User;
+import org.sda.web.model.User;
 
 import java.util.ArrayList;
 import java.util.List;

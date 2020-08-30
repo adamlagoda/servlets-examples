@@ -1,4 +1,4 @@
-package org.sda.servlets;
+package org.sda.web.filters;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

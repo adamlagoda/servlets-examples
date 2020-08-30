@@ -7,7 +7,7 @@
 
   <servlet>
     <servlet-name>HelloServlet</servlet-name>
-    <servlet-class>org.sda.servlets.HelloServlet</servlet-class>
+    <servlet-class>org.sda.web.servlets.HelloServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -17,7 +17,7 @@
 
   <servlet>
     <servlet-name>UsersServlet</servlet-name>
-    <servlet-class>org.sda.servlets.UsersServlet</servlet-class>
+    <servlet-class>org.sda.web.servlets.UsersServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>

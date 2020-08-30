@@ -1,4 +1,4 @@
-package org.sda.servlets.model;
+package org.sda.web.model;
 
 public class User {
     private String firstName;
