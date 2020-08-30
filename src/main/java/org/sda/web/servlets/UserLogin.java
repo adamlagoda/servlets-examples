@@ -4,12 +4,14 @@ import org.sda.web.database.dao.AdminsDao;
 import org.sda.web.database.dao.SessionsDao;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Random;
 
+@WebServlet(name = "UserLogin", urlPatterns = {"/adminLogin"})
 public class UserLogin extends HttpServlet {
 
     private Random generator;
@@ -19,6 +21,7 @@ public class UserLogin extends HttpServlet {
     public void init() {
         generator = new Random();
         adminsDao = new AdminsDao();
+        sessionsDao = new SessionsDao();
     }
 
     @Override
@@ -31,11 +34,11 @@ public class UserLogin extends HttpServlet {
         if (found) {
             long token = generator.nextLong();
             long sessionId = generator.nextLong();
-            sessionsDao.save(sessionId, token);
+            sessionsDao.save(login, sessionId, token);
             resp.addHeader("SESSION_ID", String.valueOf(sessionId));
             resp.addHeader("TOKEN", String.valueOf(token));
         } else {
-            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
 }

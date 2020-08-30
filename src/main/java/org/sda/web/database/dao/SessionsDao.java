@@ -15,13 +15,19 @@ public class SessionsDao {
         datasourceConfiguration = DatasourceConfiguration.getInstance();
     }
 
-    public void save(long sessionId, long token) {
+    public void save(String adminLogin, long sessionId, long token) {
         try (Connection connection = datasourceConfiguration.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO sessions (session_id, token) VALUES (?, ?)")) {
-            statement.setLong(1, sessionId);
-            statement.setLong(2, token);
-            if (statement.executeUpdate() <= 0) {
+             PreparedStatement insertSession = connection.prepareStatement("INSERT INTO sessions (session_id, token) VALUES (?, ?)");
+             PreparedStatement updateAdmins = connection.prepareStatement("UPDATE admins SET session_id = ? WHERE login = ?")) {
+            insertSession.setLong(1, sessionId);
+            insertSession.setLong(2, token);
+            if (insertSession.executeUpdate() <= 0) {
                 throw new SQLException("Couldn't insert new session");
+            }
+            updateAdmins.setLong(1, sessionId);
+            updateAdmins.setString(2, adminLogin);
+            if (updateAdmins.executeUpdate() <= 0) {
+                throw new SQLException("Couldn't update admins");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

@@ -19,7 +19,7 @@ public class SessionsDaoTest {
         SessionsDao dao = new SessionsDao();
 
         // when
-        dao.save(1, 1);
+        dao.save("admin",1, 1);
 
         // then
         Assert.assertTrue(dao.hasSession(1));
