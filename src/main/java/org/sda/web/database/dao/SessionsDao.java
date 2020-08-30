@@ -36,8 +36,11 @@ public class SessionsDao {
 
     public void delete(long sessionId) {
         try (Connection connection = datasourceConfiguration.getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM sessions WHERE session_id=?")) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM sessions WHERE session_id=?");
+             PreparedStatement updateAdmins = connection.prepareStatement("UPDATE ADMINS SET session_id = null WHERE session_id = ?")) {
             statement.setLong(1, sessionId);
+            updateAdmins.setLong(1, sessionId);
+            updateAdmins.executeUpdate();
             if (statement.executeUpdate() <= 0) {
                 throw new SQLException("Couldn't delete session");
             }
@@ -50,6 +53,20 @@ public class SessionsDao {
         try (Connection connection = datasourceConfiguration.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM sessions WHERE session_id=?")) {
             statement.setLong(1, sessionId);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean hasActiveSession(long sessionId, long token) {
+        try (Connection connection = datasourceConfiguration.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "select * from admins a left join sessions s on a.session_id = s.session_id where session_id = ? and token = ?")) {
+            statement.setLong(1, sessionId);
+            statement.setLong(2, token);
             ResultSet resultSet = statement.executeQuery();
             return resultSet.next();
         } catch (SQLException throwables) {
