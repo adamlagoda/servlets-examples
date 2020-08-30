@@ -5,6 +5,7 @@ import org.sda.web.database.dao.SessionsDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,8 +36,13 @@ public class UserLogin extends HttpServlet {
             long token = generator.nextLong();
             long sessionId = generator.nextLong();
             sessionsDao.save(login, sessionId, token);
-            resp.addHeader("SESSION_ID", String.valueOf(sessionId));
-            resp.addHeader("TOKEN", String.valueOf(token));
+
+            Cookie sessionCookie = new Cookie("SESSION_ID", String.valueOf(sessionId));
+            sessionCookie.setMaxAge(24 * 60 * 60);
+            resp.addCookie(sessionCookie);
+            Cookie tokenCookie = new Cookie("TOKEN", String.valueOf(token));
+            tokenCookie.setMaxAge(24 * 60 * 60);
+            resp.addCookie(tokenCookie);
         } else {
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
