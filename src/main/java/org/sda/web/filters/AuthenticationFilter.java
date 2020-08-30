@@ -24,22 +24,24 @@ public class AuthenticationFilter implements Filter {
         try {
             long token = 0;
             long sessionId = 0;
-            Cookie[] cookies = ((HttpServletRequest)request).getCookies();
-            for (Cookie cookie : cookies) {
-                if ("SESSION_ID".equals(cookie.getName())) {
-                    sessionId = Long.parseLong(cookie.getValue());
-                }
-                if ("TOKEN".equals(cookie.getName())) {
-                    token = Long.parseLong(cookie.getValue());
+            Cookie[] cookies = ((HttpServletRequest) request).getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if ("SESSION_ID".equals(cookie.getName())) {
+                        sessionId = Long.parseLong(cookie.getValue());
+                    }
+                    if ("TOKEN".equals(cookie.getName())) {
+                        token = Long.parseLong(cookie.getValue());
+                    }
                 }
             }
             if (sessionsDao.hasActiveSession(sessionId, token)) {
                 chain.doFilter(request, response);
             } else {
-                ((HttpServletResponse)response).sendError(HttpServletResponse.SC_FORBIDDEN);
+                ((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN);
             }
         } catch (NumberFormatException e) {
-            ((HttpServletResponse)response).sendError(HttpServletResponse.SC_FORBIDDEN);
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN);
         }
     }
 
