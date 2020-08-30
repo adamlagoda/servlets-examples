@@ -4,6 +4,7 @@ import org.sda.web.database.configuration.DatasourceConfiguration;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SessionsDao {
@@ -37,5 +38,17 @@ public class SessionsDao {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public boolean hasSession(long sessionId) {
+        try (Connection connection = datasourceConfiguration.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM sessions WHERE session_id=?")) {
+            statement.setLong(1, sessionId);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 }
