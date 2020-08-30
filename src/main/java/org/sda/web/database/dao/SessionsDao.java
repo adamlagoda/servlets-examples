@@ -64,7 +64,7 @@ public class SessionsDao {
     public boolean hasActiveSession(long sessionId, long token) {
         try (Connection connection = datasourceConfiguration.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "select * from admins a left join sessions s on a.session_id = s.session_id where session_id = ? and token = ?")) {
+                     "select * from admins a left join sessions s on a.session_id = s.session_id where s.session_id = ? and token = ?")) {
             statement.setLong(1, sessionId);
             statement.setLong(2, token);
             ResultSet resultSet = statement.executeQuery();
