@@ -12,7 +12,7 @@ public class AdminsDao {
     private DatasourceConfiguration datasourceConfiguration;
 
     public AdminsDao() {
-        this.datasourceConfiguration = new DatasourceConfiguration();
+        this.datasourceConfiguration = DatasourceConfiguration.getInstance();
     }
 
     public boolean hasAdmin(String login, String password) {

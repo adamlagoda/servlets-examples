@@ -1,6 +1,7 @@
 package org.sda.web.servlets;
 
 import org.sda.web.database.dao.AdminsDao;
+import org.sda.web.database.dao.SessionsDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +14,7 @@ public class UserLogin extends HttpServlet {
 
     private Random generator;
     private AdminsDao adminsDao;
+    private SessionsDao sessionsDao;
 
     public void init() {
         generator = new Random();
@@ -29,7 +31,7 @@ public class UserLogin extends HttpServlet {
         if (found) {
             long token = generator.nextLong();
             long sessionId = generator.nextLong();
-        // save do tabeli sessions
+            sessionsDao.save(sessionId, token);
             resp.addHeader("SESSION_ID", String.valueOf(sessionId));
             resp.addHeader("TOKEN", String.valueOf(token));
         } else {

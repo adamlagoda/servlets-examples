@@ -12,7 +12,7 @@ public class DatasourceConfigurationTest {
     @Test
     public void shouldReturnConnectionInstance() throws SQLException {
         // given
-        DatasourceConfiguration underTest = new DatasourceConfiguration();
+        DatasourceConfiguration underTest = DatasourceConfiguration.getInstance();
 
         // when
         Connection instance = underTest.getConnection();

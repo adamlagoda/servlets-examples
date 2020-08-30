@@ -7,10 +7,18 @@ import java.sql.SQLException;
 
 public class DatasourceConfiguration {
 
-    MysqlDataSource dataSource;
+    private static DatasourceConfiguration instance;
+    private MysqlDataSource dataSource;
 
-    public DatasourceConfiguration() {
+    private DatasourceConfiguration() {
         configure();
+    }
+
+    public static DatasourceConfiguration getInstance() {
+        if (instance == null) {
+            instance = new DatasourceConfiguration();
+        }
+        return instance;
     }
 
     public void configure() {
