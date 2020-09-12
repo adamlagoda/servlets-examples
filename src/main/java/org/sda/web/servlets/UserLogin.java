@@ -4,10 +4,12 @@ import org.sda.web.database.dao.AdminsDao;
 import org.sda.web.database.dao.SessionsDao;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.Random;
 
+@WebServlet(name = "UserLogin", value = "/login")
 public class UserLogin extends HttpServlet {
 
     private Random generator;

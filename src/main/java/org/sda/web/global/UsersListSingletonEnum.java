@@ -2,10 +2,7 @@ package org.sda.web.global;
 
 import org.sda.web.model.User;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public enum UsersListSingletonEnum {
     INSTANCE;
@@ -20,7 +17,7 @@ public enum UsersListSingletonEnum {
         if (admin == null) {
             throw new IllegalAccessException();
         }
-        return users.get("admin");
+        return users.getOrDefault(admin, Collections.emptyList());
     }
 
     public void addUser(String admin, User user) {
