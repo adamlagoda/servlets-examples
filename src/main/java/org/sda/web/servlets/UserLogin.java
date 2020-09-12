@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Random;
 
-@WebServlet(name = "UserLogin", urlPatterns = {"/adminLogin"})
+@WebServlet(name = "UserLogin", urlPatterns = {"/login"})
 public class UserLogin extends HttpServlet {
 
     private Random generator;
@@ -44,7 +44,7 @@ public class UserLogin extends HttpServlet {
             tokenCookie.setMaxAge(24 * 60 * 60);
             resp.addCookie(tokenCookie);
         } else {
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
 }

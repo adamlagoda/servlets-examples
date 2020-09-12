@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "AuthenticationFilter", servletNames = {"UsersServlet"})
+@WebFilter(filterName = "AuthenticationFilter", servletNames = {"UsersServlet", "AddUserServlet"})
 public class AuthenticationFilter implements Filter {
 
     private SessionsDao sessionsDao;
