@@ -24,4 +24,25 @@
     <servlet-name>UsersServlet</servlet-name>
     <url-pattern>/users</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>SetCookieServlet</servlet-name>
+    <servlet-class>org.sda.web.servlets.SetCookieServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>SetCookieServlet</servlet-name>
+    <url-pattern>/setCookie</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ReadCookieServlet</servlet-name>
+    <servlet-class>org.sda.web.servlets.ReadCookiesServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ReadCookieServlet</servlet-name>
+    <url-pattern>/readCookie</url-pattern>
+  </servlet-mapping>
+
 </web-app>
