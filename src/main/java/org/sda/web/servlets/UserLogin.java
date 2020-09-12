@@ -4,10 +4,7 @@ import org.sda.web.database.dao.AdminsDao;
 import org.sda.web.database.dao.SessionsDao;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.Random;
 
@@ -30,16 +27,8 @@ public class UserLogin extends HttpServlet {
         boolean found = adminsDao.hasAdmin(login, password);
 
         if (found) {
-            long token = generator.nextLong();
-            long sessionId = generator.nextLong();
-            sessionsDao.save(login, sessionId, token);
-
-            Cookie sessionCookie = new Cookie("SESSION_ID", String.valueOf(sessionId));
-            sessionCookie.setMaxAge(24 * 60 * 60);
-            resp.addCookie(sessionCookie);
-            Cookie tokenCookie = new Cookie("TOKEN", String.valueOf(token));
-            tokenCookie.setMaxAge(24 * 60 * 60);
-            resp.addCookie(tokenCookie);
+            HttpSession session = req.getSession(true);
+            session.setAttribute("user", login);
         } else {
             resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }
